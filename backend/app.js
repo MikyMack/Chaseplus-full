@@ -45,13 +45,17 @@ app.get('/logout', authController.logout);
 app.get('/', async (req, res) => {
     try {
         const courses = await Course.find({ isActive: true })
-            .populate('category', 'name') // Only populate category name
-            .lean() // Convert to plain JavaScript objects
+            .populate('category', 'name')
+            .lean()
             .sort({ createdAt: -1 });
             
         const categories = await Category.find({ isActive: true }).sort({ createdAt: -1 });
         
-        // Prepare courses data for client-side
+        const blogs = await Blog.find({ isPublished: true })
+            .sort({ createdAt: -1 })
+            .limit(3)
+            .lean();
+
         const preparedCourses = courses.map(course => ({
             _id: course._id.toString(),
             title: course.title,
@@ -60,9 +64,10 @@ app.get('/', async (req, res) => {
         
         res.render('index', { 
             title: 'Chaseplus',
-            courses: courses, // Original data for server-side rendering
+            courses: courses,
             categories: categories,
-            coursesJson: JSON.stringify(preparedCourses) // Clean data for client-side
+            blogs: blogs,
+            coursesJson: JSON.stringify(preparedCourses)
         });
     } catch (err) {
         console.error('Error rendering index page:', err);
@@ -75,9 +80,8 @@ app.get('/api/courses-by-category', async (req, res) => {
         const categoryName = req.query.category;
         const courses = await Course.find({ 
             isActive: true,
-            'category.name': categoryName 
+            category: categoryName // Changed from 'category.name' to just 'category'
         })
-        .populate('category', 'name')
         .select('_id title')
         .lean();
 
@@ -105,7 +109,7 @@ app.get('/courses', async (req, res) => {
         const totalCourses = await Course.countDocuments(searchQuery);
         const totalPages = Math.ceil(totalCourses / limit);
 
-        const courses = await Course.find(searchQuery)
+        const courses = await Course.find({ ...searchQuery, isActive: true })
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
@@ -269,6 +273,7 @@ app.post('/admin/courses/add', authMiddleware, upload.single('image'), async (re
             description: req.body.description,
             category: req.body.category,
             image: result.secure_url,
+            duration:req.body.duration,
             highlights: highlights,
             whatYoullLearn: whatYoullLearn,
             careerOpportunities: careerOpportunities,
@@ -318,6 +323,7 @@ app.put('/admin/courses/:id', authMiddleware, upload.single('image'), async (req
             title: req.body.title || existingCourse.title,
             description: req.body.description || existingCourse.description,
             category: req.body.category || existingCourse.category,
+            duration: req.body.duration || existingCourse.duration,
             image: imageUrl,
             highlights: highlights,
             whatYoullLearn: whatYoullLearn,
@@ -454,6 +460,163 @@ app.delete('/admin/categories/:id', authMiddleware, async (req, res) => {
         res.status(500).json({ error: 'Error deleting category' });
     }
 });
+
+
+app.get('/admin-blogs', authMiddleware, async (req, res) => {
+    try {
+        const blogs = await Blog.find().sort({ createdAt: -1 });
+        res.render('admin-blogs', { 
+            title: 'Manage Blogs',
+            blogs: blogs
+        });
+    } catch (err) {
+        console.error('Error fetching blogs:', err);
+        res.status(500).json({ error: 'Error fetching blogs' });
+    }
+});
+
+app.post('/admin/blogs', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        // Validate required fields
+        const requiredFields = ['title', 'category', 'date', 'description', 'content', 'metaTitle', 'metaDescription', 'author'];
+        for (const field of requiredFields) {
+            if (!req.body[field]) {
+                throw new Error(`${field} is required`);
+            }
+        }
+
+        if (!req.file) {
+            throw new Error('Blog image is required');
+        }
+        const result = await cloudinary.uploader.upload(req.file.path);
+
+        const blogData = {
+            title: req.body.title,
+            category: req.body.category,
+            date: req.body.date,
+            description: req.body.description,
+            content: req.body.content,
+            imageUrl: result.secure_url,
+            metaTitle: req.body.metaTitle,
+            metaDescription: req.body.metaDescription,
+            author: req.body.author,
+            isPublished: req.body.isPublished === 'on' ? true : false
+        };
+
+        const blog = new Blog(blogData);
+        await blog.validate();
+        await blog.save();
+        
+        res.json({ success: true, blog });
+    } catch (err) {
+        console.error('Error creating blog:', err);
+        res.status(500).json({ 
+            error: 'Error creating blog',
+            details: err.message 
+        });
+    }
+});
+
+app.put('/admin/blogs/:id', authMiddleware, upload.single('image'), async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const existingBlog = await Blog.findById(blogId);
+        
+        if (!existingBlog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        // Validate required fields
+        const requiredFields = ['title', 'category', 'date', 'description', 'content', 'metaTitle', 'metaDescription', 'author'];
+        for (const field of requiredFields) {
+            if (!req.body[field]) {
+                throw new Error(`${field} is required`);
+            }
+        }
+
+        let imageUrl = existingBlog.imageUrl;
+        if (req.file) {
+            // Delete old image from Cloudinary
+            if (existingBlog.imageUrl) {
+                const publicId = existingBlog.imageUrl.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(`blog-images/${publicId}`);
+            }
+            
+            // Upload new image
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url;
+        }
+
+        const updates = {
+            title: req.body.title,
+            category: req.body.category,
+            date: req.body.date,
+            description: req.body.description,
+            content: req.body.content,
+            imageUrl: imageUrl,
+            metaTitle: req.body.metaTitle,
+            metaDescription: req.body.metaDescription,
+            author: req.body.author,
+            isPublished: req.body.isPublished === 'on' ? true : false
+        };
+
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            blogId,
+            updates,
+            { new: true, runValidators: true }
+        );
+
+        res.json({ success: true, blog: updatedBlog });
+    } catch (err) {
+        console.error('Error updating blog:', err);
+        res.status(500).json({ error: 'Error updating blog', details: err.message });
+    }
+});
+
+app.patch('/admin/blogs/:id/toggle-status', authMiddleware, async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const blog = await Blog.findById(blogId);
+        
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        blog.isPublished = !blog.isPublished;
+        await blog.save();
+        
+        res.json({ success: true, isPublished: blog.isPublished });
+    } catch (err) {
+        console.error('Error toggling blog status:', err);
+        res.status(500).json({ error: 'Error updating blog status' });
+    }
+});
+
+app.delete('/admin/blogs/:id', authMiddleware, async (req, res) => {
+    try {
+        const blogId = req.params.id;
+        const blog = await Blog.findById(blogId);
+        
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        // Delete image from Cloudinary
+        if (blog.imageUrl) {
+            const publicId = blog.imageUrl.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`blog-images/${publicId}`);
+        }
+
+        // Delete blog from database
+        await Blog.findByIdAndDelete(blogId);
+        
+        res.json({ success: true });
+    } catch (err) {
+        console.error('Error deleting blog:', err);
+        res.status(500).json({ error: 'Error deleting blog' });
+    }
+});
+
 
 
 // Error handlers

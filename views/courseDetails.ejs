@@ -102,7 +102,7 @@
       <div class="page-header__overlay"></div>
       <!-- /.page-header-overlay -->
       <div class="container text-center">
-        <h2 class="page-header__title">Course Details</h2>
+        <h2 class="page-header__title"> <%= course.title %></h2>
         <!-- /.page-title -->
         <ul class="page-header__breadcrumb list-unstyled">
           <li><a href="/">Home</a></li>
@@ -125,7 +125,7 @@
               <!-- details-image -->
               <div class="blog-details__meta">
                 <div class="blog-details__meta__date">
-                  <i class="icon-clock"></i>06 Months
+                  <i class="icon-clock"></i>Course Duration : <%= course.duration %>
                 </div>
               </div>
               <!-- /.details-meta -->
@@ -134,7 +134,7 @@
               </h3>
               <!-- details-title -->
               <p class="blog-details__text">
-                <%= course.description %>
+                 <%= course.description %>
               </p>
 
               <h4 class="blog-details__subtitle">Course Highlights:</h4>

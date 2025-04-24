@@ -178,7 +178,7 @@
                             <div class="center-item">
                                 <ul class="">
                                     <li class="menu-item ">
-                                        <a href="/admin-dashboard" class="">
+                                        <a href="/admin-dashboard" class="active">
                                             <div class="icon">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -204,7 +204,16 @@
                                         </a>
                                     </li>
 
-
+                                    <li class="menu-item ">
+                                        <a href="/admin-blogs" class="">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2652 3.57566C12.1187 3.42921 11.8813 3.42921 11.7348 3.57566L5.25 10.0605V19.8748C5.25 20.0819 5.41789 20.2498 5.625 20.2498H9V16.1248C9 15.0893 9.83947 14.2498 10.875 14.2498H13.125C14.1605 14.2498 15 15.0893 15 16.1248V20.2498H18.375C18.5821 20.2498 18.75 20.0819 18.75 19.8748V10.0605L12.2652 3.57566ZM20.25 11.5605L21.2197 12.5302C21.5126 12.8231 21.9874 12.8231 22.2803 12.5302C22.5732 12.2373 22.5732 11.7624 22.2803 11.4695L13.3258 2.51499C12.5936 1.78276 11.4064 1.78276 10.6742 2.515L1.71967 11.4695C1.42678 11.7624 1.42678 12.2373 1.71967 12.5302C2.01256 12.8231 2.48744 12.8231 2.78033 12.5302L3.75 11.5605V19.8748C3.75 20.9104 4.58947 21.7498 5.625 21.7498H18.375C19.4105 21.7498 20.25 20.9104 20.25 19.8748V11.5605ZM13.5 20.2498H10.5V16.1248C10.5 15.9177 10.6679 15.7498 10.875 15.7498H13.125C13.3321 15.7498 13.5 15.9177 13.5 16.1248V20.2498Z" fill="#111111"/>
+                                                </svg>
+                                            </div>
+                                            <div class="text">Blogs Management</div>
+                                        </a>
+                                    </li>
 
 
 
@@ -381,6 +390,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
+                                                    <label>Course Duration</label>
+                                                    <input type="text" name="duration" required>
+                                                </div>
+                                                <div class="form-group">
                                                     <label>Image</label>
                                                     <input type="file" name="image" required accept="image/*">
                                                 </div>
@@ -444,6 +457,10 @@
                                                             </option>
                                                             <% }); %>
                                                     </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Course Duration</label>
+                                                    <input type="text" name="duration" id="editDuration" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Current Image</label>
@@ -515,6 +532,9 @@
                                                         style="display:none;">
                                                         <p><strong>Category:</strong>
                                                             <%= course.category %>
+                                                        </p>
+                                                        <p><strong>Duration:</strong>
+                                                            <%= course.duration %>
                                                         </p>
 
                                                         <div class="details-section">
@@ -650,6 +670,7 @@
                                             document.getElementById('editTitle').value = course.title;
                                             document.getElementById('editDescription').value = course.description;
                                             document.getElementById('editCategory').value = course.category;
+                                            document.getElementById('editDuration').value = course.duration;
                                             document.getElementById('currentImage').src = course.image;
                                             document.getElementById('editPrice').value = course.price;
                                             document.getElementById('editOfferPrice').value = course.offerPrice || '';
@@ -703,6 +724,7 @@
                                         formData.append('title', e.target.title.value);
                                         formData.append('description', e.target.description.value);
                                         formData.append('category', e.target.category.value);
+                                        formData.append('duration', e.target.duration.value);
                                         formData.append('image', e.target.image.files[0]);
                                         formData.append('price', e.target.price.value);
                                         if (e.target.offerPrice.value) {
@@ -754,6 +776,7 @@
                                         formData.append('title', e.target.title.value);
                                         formData.append('description', e.target.description.value);
                                         formData.append('category', e.target.category.value);
+                                        formData.append('duration', e.target.duration.value);
                                         if (e.target.image.files[0]) {
                                             formData.append('image', e.target.image.files[0]);
                                         }

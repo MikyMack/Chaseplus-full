@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chaseplus</title>
+    <title><%= blog.metaTitle %></title>
+    <meta name="description" content="<%= blog.metaDescription %>" />
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/chaseplus.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/chaseplus.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/chaseplus.png" />
     <link rel="manifest" href="/images/favicons/site.webmanifest" />
-    <meta name="description" content="Eduact HTML Template For Educaton & LMS" />
+  
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/" />
@@ -106,8 +107,8 @@
                 <h2 class="page-header__title">Blog Details</h2>
                 <!-- /.page-title -->
                 <ul class="page-header__breadcrumb list-unstyled">
-                    <li><a href="index.html">Home</a></li>
-                    <li><span>Blos</span></li>
+                    <li><a href="/">Home</a></li>
+                    <li><span>Blogs</span></li>
                 </ul>
                 <!-- /.page-breadcrumb list-unstyled -->
             </div>
@@ -121,47 +122,25 @@
                     <div class="col-xl-12 col-lg-7">
                         <div class="blog-details__content">
                             <div class="blog-details__img">
-                                <img src="/images/course/crs-4.jpg" alt="eduact" />
+                                <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" />
                             </div>
                             <!-- details-image -->
                             <div class="blog-details__meta">
                                 <div class="blog-details__meta__cats">
-                                    <a href="blog-list-right.html">Aviation</a>
+                                    <a href="/blogs?category=<%= blog.category %>"><%= blog.category %></a>
                                 </div>
                                 <div class="blog-details__meta__date">
-                                    <i class="icon-clock"></i>26 Mar, 2025
+                                    <i class="icon-clock"></i><%= new Date(blog.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) %>
                                 </div>
                             </div>
                             <!-- /.details-meta -->
                             <h3 class="blog-details__title">
-                                Frankfinn's Advanced Aviation Training: What Sets it Apart?
+                                <%= blog.title %>
                             </h3>
-                            <!-- details-tiele -->
-                            <p class="blog-details__text">
-                                There are many variations of passages of Lorem Ipsum
-                                available, but the majority have suffered alteration in some
-                                form, by injected humour, or randomised words which don't look
-                                even slightly believable. If you are going to use a passage of
-                                Lorem Ipsum. Class aptent taciti sociosqu ad litora torquent
-                                per conubia nostra, per inceptos himenaeos. Vestibulum
-                                sollicitudin varius mauris non dignissim. Sed quis iaculis
-                                est. Nulla quam neque, interdum vitae fermentum lacinia,
-                                interdum eu magna. Mauris non posuere tellus. Donec quis
-                                euismod tellus. Nam vel lacus eu nisl bibendum accumsan vitae
-                                vitae nibh. Nam nec eros id magna hendrerit sagittis. Nullam
-                                sed mi non odio feugiat volutpat sit amet nec elit. Maecenas
-                                id hendrerit ipsum. Sed eget auctor metus, ac dapibus dolor
-                            </p>
-                            <p class="blog-details__text">
-                                Nam vel lacus eu nisl bibendum accumsan vitae vitae nibh. Nam
-                                nec eros id magna hendrerit sagittis. Nullam sed mi non odio
-                                feugiat volutpat sit amet nec elit. Maecenas id hendrerit
-                                ipsum. Sed eget auctor metus, ac dapibus dolor. Mauris gravida
-                                lacus metus, ac sagittis tortor hendrerit sit amet. Aenean
-                                dictum eget nulla in pharetra. Vestibulum vulputate vehicula
-                                mattis. Vivamus dictum nec dui porta rutrum. Nam erat felis,
-                                mattis ac massa
-                            </p>
+                            <!-- details-title -->
+                            <div class="blog-details__text">
+                                <%- blog.content %>
+                            </div>
                         </div>
                         <!-- details-content -->
                     </div>

@@ -119,217 +119,78 @@
         <img src="/images/shapes/course-shape-1.png" alt="eduact" />
       </div>
       <div class="container">
+        <!-- Search Form -->
+        <div class="row mb-5">
+          <div class="col-md-8 mx-auto">
+            <form action="/courses" method="GET" class="d-flex">
+              <input type="text" name="search" class="form-control" placeholder="Search courses with category or course names..." value="<%= searchQuery %>">
+              <button type="submit" class="eduact-btn ms-2">Search</button>
+            </form>
+          </div>
+        </div>
+
         <div class="row">
+          <% courses.forEach(function(course) { %>
           <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
             <div class="course-two__item">
               <div class="course-two__thumb">
-                <img src="/images/course/crs-3.jpg" alt="eduact" />
-
+                <img src="<%= course.image %>" alt="<%= course.title %>" />
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
+                  <path d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
                 </svg>
               </div>
-              <!-- /.course-thumb -->
               <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
+                <div class="course-two__time"><%= course.duration %></div>
+                <div class="course-two__category"><%= course.category %></div>
                 <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
+                  <a href="/course-details/<%= course._id %>"><%= course.title %></a>
                 </h3>
                 <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
+                  <%= course.description.split(' ').slice(0, 8).join(' ') %>...
                 </p>
+                <div class="course-two__price">
+                  <% if (course.offerPrice) { %>
+                    <span class="course-two__price-old" style="margin-right: 10px; color: #999; text-decoration: line-through;">₹<%= course.price %></span>
+                    <span class="course-two__price-new" style="color: #ff4f4f; font-weight: bold;">₹<%= course.offerPrice %></span>
+                  <% } else { %>
+                    <span class="course-two__price-new">₹<%= course.price %></span>
+                  <% } %>
+                </div>
                 <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
+                  <a href="/course-details/<%= course._id %>">
+                    <button>More Details</button>
+                  </a>
                 </div>
               </div>
-              <!-- /.course-content -->
             </div>
-            <!-- /.course-card-two -->
           </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
-            <div class="course-two__item">
-              <div class="course-two__thumb">
-                <img src="/images/course/crs-1.jpg" alt="eduact" />
+          <% }); %>
+        </div>
 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
-                </svg>
-              </div>
-              <!-- /.course-thumb -->
-              <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
-                <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
-                </h3>
-                <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
-                </p>
-                <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
-                </div>
-              </div>
-              <!-- /.course-content -->
-            </div>
-            <!-- /.course-card-two -->
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="300ms">
-            <div class="course-two__item">
-              <div class="course-two__thumb">
-                <img src="/images/course/crs-2.jpg" alt="eduact" />
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
-                </svg>
-              </div>
-              <!-- /.course-thumb -->
-              <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
-                <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
-                </h3>
-                <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
-                </p>
-                <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
-                </div>
-              </div>
-              <!-- /.course-content -->
-            </div>
-            <!-- /.course-card-two -->
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="400ms">
-            <div class="course-two__item">
-              <div class="course-two__thumb">
-                <img src="/images/course/crs-3.jpg" alt="eduact" />
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
-                </svg>
-              </div>
-              <!-- /.course-thumb -->
-              <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
-                <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
-                </h3>
-                <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
-                </p>
-                <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
-                </div>
-              </div>
-              <!-- /.course-content -->
-            </div>
-            <!-- /.course-card-two -->
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="500ms">
-            <div class="course-two__item">
-              <div class="course-two__thumb">
-                <img src="/images/course/crs-4.jpg" alt="eduact" />
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
-                </svg>
-              </div>
-              <!-- /.course-thumb -->
-              <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
-                <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
-                </h3>
-                <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
-                </p>
-                <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
-                </div>
-              </div>
-              <!-- /.course-content -->
-            </div>
-            <!-- /.course-card-two -->
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="600ms">
-            <div class="course-two__item">
-              <div class="course-two__thumb">
-                <img src="/images/course/crs-5.jpg" alt="eduact" />
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 353 177">
-                  <path
-                    d="M37 0C16.5655 0 0 16.5655 0 37V93.4816C0 103.547 4.00259 113.295 11.7361 119.737C54.2735 155.171 112.403 177 176.496 177C240.589 177 298.718 155.171 341.261 119.737C348.996 113.295 353 103.546 353 93.4795V37C353 16.5655 336.435 0 316 0H37Z" />
-                </svg>
-              </div>
-              <!-- /.course-thumb -->
-              <div class="course-two__content">
-                <div class="course-two__time">6 Months</div>
-
-                <h3 class="course-two__title">
-                  <a href="management-consulting.html">Aviation, Hospitality and Travel Management</a>
-                </h3>
-                <p class="crs-discr">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloribus, explicabo vero labore nihil blanditiis error,
-                  laudantium veritatis ratione fugit dolorem molestias
-                  laboriosam placeat? Rem ipsam atque itaque. Facilis, dolor
-                  sed.
-                </p>
-                <div class="crs-page-btn">
-                  <a href="course-details.html">
-                    <button>More Details</button></a>
-                </div>
-              </div>
-              <!-- /.course-content -->
-            </div>
-            <!-- /.course-card-two -->
+        <% if (totalPages > 1) { %>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="blog-page__pagination clearfix">
+              <% for(let i = 1; i <= totalPages; i++) { %>
+                <li>
+                  <a href="/courses?page=<%= i %><%= searchQuery ? '&search=' + searchQuery : '' %>" 
+                     class="<%= currentPage === i ? 'active' : '' %>">
+                    <%= i %>
+                  </a>
+                </li>
+              <% } %>
+              <% if (currentPage < totalPages) { %>
+                <li class="next">
+                  <a href="/courses?page=<%= currentPage + 1 %><%= searchQuery ? '&search=' + searchQuery : '' %>">
+                    <span class="icon-caret-right"></span>
+                  </a>
+                </li>
+              <% } %>
+            </ul>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="blog-page__pagination clearfix">
-            <li><a href="blog-list-left.html" class="active">1</a></li>
-            <li><a href="blog-list-right.html">2</a></li>
-            <li class="next">
-              <a href="blog-list.html"><span class="icon-caret-right"></span></a>
-            </li>
-          </ul>
-        </div>
+        <% } %>
+
       </div>
     </section>
     <!-- Course End -->

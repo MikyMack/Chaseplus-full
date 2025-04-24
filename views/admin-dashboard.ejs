@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8" />
+
+    <title>ChasePlus Dashboard</title>
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" href="/admin-css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/admin-css/animation.css" />
+    <link rel="stylesheet" type="text/css" href="/admin-css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/admin-css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="/admin-css/styles.css" />
+
+    <!-- Font -->
+    <link rel="stylesheet" href="/admin-font/fonts.css" />
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="/admin-icon/style.css" />
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="/admin-images/logo/logo.png" />
+    <link rel="apple-touch-icon-precomposed" href="/admin-images/logo/logo.png" />
+    <style>
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .course-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .course-details {
+            padding: 15px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .details-section {
+            margin: 10px 0;
+        }
+
+        .details-section h5 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .details-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .price-section {
+            margin: 10px 0;
+        }
+
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .offer-price {
+            color: #28a745;
+            margin-left: 10px;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <!-- #wrapper -->
+    <div id="wrapper">
+        <!-- #page -->
+        <div id="page" class="">
+            <!-- layout-wrap -->
+            <div class="layout-wrap loader-off">
+                <!-- preload -->
+                <div id="preload" class="preload-container">
+                    <div class="preloading">
+                        <span></span>
+                    </div>
+                </div>
+                <!-- /preload -->
+                <!-- section-menu-left -->
+
+                <div class="section-menu-left">
+                    <div class="box-logo">
+                        <a href="/admin-dashboard" id="site-logo-inner">
+                            <img class="" id="logo_header" alt="" src="/admin-images/logo/logo.png"
+                                data-light="/admin-images/logo/logo.png" data-dark="/admin-images/logo/logo.png">
+                        </a>
+                        <div class="button-show-hide">
+                            <i class="icon-chevron-left"></i>
+                        </div>
+                    </div>
+                    <div class="section-menu-left-wrap">
+                        <div class="center">
+                            <div class="center-item">
+                                <ul class="">
+                                    <li class="menu-item ">
+                                        <a href="/admin-dashboard" class="">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.2652 3.57566C12.1187 3.42921 11.8813 3.42921 11.7348 3.57566L5.25 10.0605V19.8748C5.25 20.0819 5.41789 20.2498 5.625 20.2498H9V16.1248C9 15.0893 9.83947 14.2498 10.875 14.2498H13.125C14.1605 14.2498 15 15.0893 15 16.1248V20.2498H18.375C18.5821 20.2498 18.75 20.0819 18.75 19.8748V10.0605L12.2652 3.57566ZM20.25 11.5605L21.2197 12.5302C21.5126 12.8231 21.9874 12.8231 22.2803 12.5302C22.5732 12.2373 22.5732 11.7624 22.2803 11.4695L13.3258 2.51499C12.5936 1.78276 11.4064 1.78276 10.6742 2.515L1.71967 11.4695C1.42678 11.7624 1.42678 12.2373 1.71967 12.5302C2.01256 12.8231 2.48744 12.8231 2.78033 12.5302L3.75 11.5605V19.8748C3.75 20.9104 4.58947 21.7498 5.625 21.7498H18.375C19.4105 21.7498 20.25 20.9104 20.25 19.8748V11.5605ZM13.5 20.2498H10.5V16.1248C10.5 15.9177 10.6679 15.7498 10.875 15.7498H13.125C13.3321 15.7498 13.5 15.9177 13.5 16.1248V20.2498Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Course Management</div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a href="/admin-category" class="">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M12.2652 3.57566C12.1187 3.42921 11.8813 3.42921 11.7348 3.57566L5.25 10.0605V19.8748C5.25 20.0819 5.41789 20.2498 5.625 20.2498H9V16.1248C9 15.0893 9.83947 14.2498 10.875 14.2498H13.125C14.1605 14.2498 15 15.0893 15 16.1248V20.2498H18.375C18.5821 20.2498 18.75 20.0819 18.75 19.8748V10.0605L12.2652 3.57566ZM20.25 11.5605L21.2197 12.5302C21.5126 12.8231 21.9874 12.8231 22.2803 12.5302C22.5732 12.2373 22.5732 11.7624 22.2803 11.4695L13.3258 2.51499C12.5936 1.78276 11.4064 1.78276 10.6742 2.515L1.71967 11.4695C1.42678 11.7624 1.42678 12.2373 1.71967 12.5302C2.01256 12.8231 2.48744 12.8231 2.78033 12.5302L3.75 11.5605V19.8748C3.75 20.9104 4.58947 21.7498 5.625 21.7498H18.375C19.4105 21.7498 20.25 20.9104 20.25 19.8748V11.5605ZM13.5 20.2498H10.5V16.1248C10.5 15.9177 10.6679 15.7498 10.875 15.7498H13.125C13.3321 15.7498 13.5 15.9177 13.5 16.1248V20.2498Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Category Management</div>
+                                        </a>
+                                    </li>
+
+
+
+
+
+                                    <li class="menu-item">
+                                        <a href="/logout" class="">
+                                            <div class="icon">
+                                                <svg width="24" height="22" viewBox="0 0 20 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M8.125 18.6875C8.125 18.903 8.0394 19.1097 7.88702 19.262C7.73465 19.4144 7.52799 19.5 7.3125 19.5H1.625C1.19402 19.5 0.780698 19.3288 0.475951 19.024C0.171205 18.7193 0 18.306 0 17.875V1.625C0 1.19402 0.171205 0.780698 0.475951 0.475951C0.780698 0.171205 1.19402 0 1.625 0H7.3125C7.52799 0 7.73465 0.0856026 7.88702 0.237976C8.0394 0.390349 8.125 0.597012 8.125 0.8125C8.125 1.02799 8.0394 1.23465 7.88702 1.38702C7.73465 1.5394 7.52799 1.625 7.3125 1.625H1.625V17.875H7.3125C7.52799 17.875 7.73465 17.9606 7.88702 18.113C8.0394 18.2653 8.125 18.472 8.125 18.6875ZM19.2623 9.17516L15.1998 5.11266C15.0474 4.9602 14.8406 4.87455 14.625 4.87455C14.4094 4.87455 14.2026 4.9602 14.0502 5.11266C13.8977 5.26511 13.812 5.47189 13.812 5.6875C13.812 5.90311 13.8977 6.10989 14.0502 6.26234L16.7263 8.9375H7.3125C7.09701 8.9375 6.89035 9.0231 6.73798 9.17548C6.5856 9.32785 6.5 9.53451 6.5 9.75C6.5 9.96549 6.5856 10.1722 6.73798 10.3245C6.89035 10.4769 7.09701 10.5625 7.3125 10.5625H16.7263L14.0502 13.2377C13.8977 13.3901 13.812 13.5969 13.812 13.8125C13.812 14.0281 13.8977 14.2349 14.0502 14.3873C14.2026 14.5398 14.4094 14.6255 14.625 14.6255C14.8406 14.6255 15.0474 14.5398 15.1998 14.3873L19.2623 10.3248C19.3379 10.2494 19.3978 10.1598 19.4387 10.0611C19.4796 9.9625 19.5006 9.85678 19.5006 9.75C19.5006 9.64322 19.4796 9.5375 19.4387 9.43886C19.3978 9.34023 19.3379 9.25062 19.2623 9.17516Z"
+                                                        fill="#111111" />
+                                                </svg>
+                                            </div>
+                                            <div class="text">Log out</div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /section-menu-left -->
+                <!-- section-content-right -->
+                <div class="section-content-right">
+                    <!-- header-dashboard -->
+                    <div class="header-dashboard">
+                        <div class="wrap">
+                            <div class="header-left">
+                                <a href="/admin-dashboard">
+                                    <img class="" id="logo_header_mobile" alt="" src="/admin-images/logo/logo.png"
+                                        data-light="/admin-images/logo/logo.png"
+                                        data-dark="/admin-images/logo/logo.png">
+                                </a>
+                                <div class="button-show-hide">
+                                    <i class="icon-chevron-left"></i>
+                                </div>
+
+                            </div>
+                            <div class="header-grid">
+
+                                <div class="header-item button-dark-light">
+                                    <i class="icon-moon"></i>
+                                </div>
+
+
+                                <div class="header-item button-zoom-maximize">
+                                    <div class="">
+                                        <i class="icon-maximize"></i>
+                                    </div>
+                                </div>
+
+                                <div class="popup-wrap user type-header">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="header-user wg-user">
+                                                <span class="image">
+                                                    <img src="/admin-images/avatar/user-1.png" alt="">
+                                                </span>
+                                                <span class="flex flex-column">
+                                                    <span class="body-text text-main-dark">ChasePlus</span>
+                                                    <span class="text-tiny">Admin</span>
+                                                </span>
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end has-content"
+                                            aria-labelledby="dropdownMenuButton3">
+                                            <li>
+                                                <a href="#" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-user"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Account</div>
+                                                </a>
+                                            </li>
+
+
+                                            <li>
+                                                <a href="#" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-headphones"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Support</div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="login.html" class="user-item">
+                                                    <div class="icon">
+                                                        <i class="icon-log-out"></i>
+                                                    </div>
+                                                    <div class="body-title-2">Log out</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /header-dashboard -->
+                    <!-- main-content -->
+                    <div class="main-content">
+                        <!-- main-content-wrap -->
+                        <div class="main-content-inner">
+                            <!-- main-content-wrap -->
+                            <div class="main-content-wrap">
+                                <div class="flex items-center flex-wrap justify-between gap20 mb-30">
+                                    <h3>All Courses</h3>
+                                    <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                                        <li>
+                                            <a href="/admin-dashboard">
+                                                <div class="text-tiny">Dashboard</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="text-tiny">Course Managments </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <div class="text-tiny">All Course</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- all-user -->
+                                <div class="wg-box">
+                                    <div class="flex items-center justify-between gap10 flex-wrap">
+                                        <div class="wg-filter flex-grow">
+                                            <form class="form-search" method="GET" action="/admin-dashboard">
+                                                <fieldset class="name">
+                                                    <input type="text" placeholder="Search courses..." class=""
+                                                        name="search" value="<%= searchQuery %>" />
+                                                </fieldset>
+                                                <div class="button-submit">
+                                                    <button class="" type="submit">
+                                                        <i class="icon-search"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <button class="tf-button style-1 w208" onclick="showAddForm()">
+                                            <i class="icon-plus"></i>Add new
+                                        </button>
+                                    </div>
+
+                                    <!-- Add Course Form Modal -->
+                                    <div id="addCourseModal" class="modal" style="display:none;">
+                                        <div class="modal-content">
+                                            <h3>Add New Course</h3>
+                                            <form id="addCourseForm" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input type="text" name="title" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea name="description" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Category</label>
+                                                    <select name="category" required>
+                                                        <option value="">Select a category</option>
+                                                        <% categories.forEach(function(category) { %>
+                                                            <option value="<%= category.name %>">
+                                                                <%= category.name %>
+                                                            </option>
+                                                            <% }); %>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Image</label>
+                                                    <input type="file" name="image" required accept="image/*">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Price</label>
+                                                    <input type="number" name="price" required min="0" step="0.01">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Offer Price</label>
+                                                    <input type="number" name="offerPrice" min="0" step="0.01">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Highlights (Comma separated)</label>
+                                                    <textarea name="highlights" required placeholder="Enter highlights separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>What You'll Learn (Comma separated)</label>
+                                                    <textarea name="whatYoullLearn" required placeholder="Enter learning points separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Career Opportunities (Comma separated)</label>
+                                                    <textarea name="careerOpportunities" required placeholder="Enter career opportunities separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Why Choose This Course (Comma separated)</label>
+                                                    <textarea name="whyChooseThisCourse" required placeholder="Enter reasons separated by commas"></textarea>
+                                                </div>
+
+                                                <button type="submit" class="tf-button style-1 mb-4">Add Course</button>
+                                                <button type="button" class="tf-button style-3"
+                                                    onclick="hideAddForm()">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Edit Course Form Modal -->
+                                    <div id="editCourseModal" class="modal" style="display:none;">
+                                        <div class="modal-content">
+                                            <h3>Edit Course</h3>
+                                            <form id="editCourseForm" enctype="multipart/form-data">
+                                                <input type="hidden" name="courseId" id="editCourseId">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input type="text" name="title" id="editTitle" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea name="description" id="editDescription"
+                                                        required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Category</label>
+                                                    <select name="category" id="editCategory" required>
+                                                        <option value="">Select a category</option>
+                                                        <% categories.forEach(function(category) { %>
+                                                            <option value="<%= category.name %>">
+                                                                <%= category.name %>
+                                                            </option>
+                                                            <% }); %>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Current Image</label>
+                                                    <img id="currentImage" src="" alt="Current course image"
+                                                        style="max-width: 200px;">
+                                                    <label>Change Image</label>
+                                                    <input type="file" name="image" accept="image/*">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Price</label>
+                                                    <input type="number" name="price" id="editPrice" required min="0"
+                                                        step="0.01">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Offer Price</label>
+                                                    <input type="number" name="offerPrice" id="editOfferPrice" min="0"
+                                                        step="0.01">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Highlights (Comma separated)</label>
+                                                    <textarea name="highlights" id="editHighlights" required placeholder="Enter highlights separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>What You'll Learn (Comma separated)</label>
+                                                    <textarea name="whatYoullLearn" id="editWhatYoullLearn" required placeholder="Enter learning points separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Career Opportunities (Comma separated)</label>
+                                                    <textarea name="careerOpportunities" id="editCareerOpportunities" required placeholder="Enter career opportunities separated by commas"></textarea>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Why Choose This Course (Comma separated)</label>
+                                                    <textarea name="whyChooseThisCourse" id="editWhyChoose" required placeholder="Enter reasons separated by commas"></textarea>
+                                                </div>
+
+                                                <button type="submit" class="tf-button style-1 mb-4">Update Course</button>
+                                                <button type="button" class="tf-button style-3"
+                                                    onclick="hideEditForm()">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Course Cards -->
+                                    <div class="course-grid">
+                                        <% courses.forEach(function(course) { %>
+                                            <div class="course-card">
+                                                <div class="course-image">
+                                                    <img src="<%= course.image %>" alt="<%= course.title %>">
+                                                </div>
+                                                <div class="course-details">
+                                                    <h4>
+                                                        <%= course.title %>
+                                                    </h4>
+                                                    <p class="description">
+                                                        <%= course.description.substring(0, 100) %>...
+                                                    </p>
+                                                    <div class="price-section">
+                                                        <span class="price">$<%= course.price %></span>
+                                                        <% if(course.offerPrice) { %>
+                                                            <span class="offer-price">$<%= course.offerPrice %></span>
+                                                            <% } %>
+                                                    </div>
+                                                    <button class="show-more"
+                                                        onclick="toggleDetails('<%= course._id %>')">Show More</button>
+                                                    <div class="extended-details" id="details-<%= course._id %>"
+                                                        style="display:none;">
+                                                        <p><strong>Category:</strong>
+                                                            <%= course.category %>
+                                                        </p>
+
+                                                        <div class="details-section">
+                                                            <h5>Highlights:</h5>
+                                                            <ul>
+                                                                <% course.highlights.forEach(function(highlight) { %>
+                                                                    <li>
+                                                                        <%= highlight %>
+                                                                    </li>
+                                                                    <% }); %>
+                                                            </ul>
+                                                        </div>
+
+                                                        <div class="details-section">
+                                                            <h5>What You'll Learn:</h5>
+                                                            <ul>
+                                                                <% course.whatYoullLearn.forEach(function(item) { %>
+                                                                    <li>
+                                                                        <%= item %>
+                                                                    </li>
+                                                                    <% }); %>
+                                                            </ul>
+                                                        </div>
+
+                                                        <div class="details-section">
+                                                            <h5>Career Opportunities:</h5>
+                                                            <ul>
+                                                                <% course.careerOpportunities.forEach(function(opportunity)
+                                                                    { %>
+                                                                    <li>
+                                                                        <%= opportunity %>
+                                                                    </li>
+                                                                    <% }); %>
+                                                            </ul>
+                                                        </div>
+
+                                                        <div class="details-section">
+                                                            <h5>Why Choose This Course:</h5>
+                                                            <ul>
+                                                                <% course.whyChooseThisCourse.forEach(function(reason) {
+                                                                    %>
+                                                                    <li>
+                                                                        <%= reason %>
+                                                                    </li>
+                                                                    <% }); %>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="course-actions">
+                                                        <button onclick="editCourse('<%= JSON.stringify(course) %>')"
+                                                            class="edit-btn">
+                                                            <i class="icon-edit-3"></i> Edit
+                                                        </button>
+                                                        <button onclick="deleteCourse('<%= course._id %>')"
+                                                            class="delete-btn">
+                                                            <i class="icon-trash-2"></i> Delete
+                                                        </button>
+                                                        <div class="toggle-status">
+                                                            <label class="switch">
+                                                                <input type="checkbox" <%=course.isActive ? 'checked'
+                                                                    : '' %>
+                                                                onchange="toggleStatus('<%= course._id %>')">
+                                                                    <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }); %>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <div class="pagination-section">
+                                        <div class="showing-entries">
+                                            Showing <%= (currentPage-1)*limit + 1 %> to <%= Math.min(currentPage*limit,
+                                                    totalCourses) %> of <%= totalCourses %> entries
+                                        </div>
+                                        <div class="pagination">
+                                            <% if(currentPage> 1) { %>
+                                                <a
+                                                    href="?page=<%= currentPage-1 %>&limit=<%= limit %>&search=<%= searchQuery %>">&laquo;
+                                                    Previous</a>
+                                                <% } %>
+
+                                                    <% for(let i=1; i <=totalPages; i++) { %>
+                                                        <a href="?page=<%= i %>&limit=<%= limit %>&search=<%= searchQuery %>"
+                                                            class="<%= currentPage === i ? 'active' : '' %>">
+                                                            <%= i %>
+                                                        </a>
+                                                        <% } %>
+
+                                                            <% if(currentPage < totalPages) { %>
+                                                                <a
+                                                                    href="?page=<%= currentPage+1 %>&limit=<%= limit %>&search=<%= searchQuery %>">Next
+                                                                    &raquo;</a>
+                                                                <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    function showAddForm() {
+                                        document.getElementById('addCourseModal').style.display = 'block';
+                                    }
+
+                                    function hideAddForm() {
+                                        document.getElementById('addCourseModal').style.display = 'none';
+                                    }
+
+                                    function showEditForm() {
+                                        document.getElementById('editCourseModal').style.display = 'block';
+                                    }
+
+                                    function hideEditForm() {
+                                        document.getElementById('editCourseModal').style.display = 'none';
+                                    }
+
+                                    function toggleDetails(courseId) {
+                                        const details = document.getElementById(`details-${courseId}`);
+                                        const button = event.target;
+                                        if (details.style.display === 'none') {
+                                            details.style.display = 'block';
+                                            button.textContent = 'Show Less';
+                                        } else {
+                                            details.style.display = 'none';
+                                            button.textContent = 'Show More';
+                                        }
+                                    }
+
+                                    function editCourse(courseData) {
+                                        try {
+                                            const course = JSON.parse(courseData.replace(/&quot;/g, '"'));
+                                            document.getElementById('editCourseId').value = course._id;
+                                            document.getElementById('editTitle').value = course.title;
+                                            document.getElementById('editDescription').value = course.description;
+                                            document.getElementById('editCategory').value = course.category;
+                                            document.getElementById('currentImage').src = course.image;
+                                            document.getElementById('editPrice').value = course.price;
+                                            document.getElementById('editOfferPrice').value = course.offerPrice || '';
+
+                                            // Set comma-separated values for arrays
+                                            document.getElementById('editHighlights').value = course.highlights.join(', ');
+                                            document.getElementById('editWhatYoullLearn').value = course.whatYoullLearn.join(', ');
+                                            document.getElementById('editCareerOpportunities').value = course.careerOpportunities.join(', ');
+                                            document.getElementById('editWhyChoose').value = course.whyChooseThisCourse.join(', ');
+
+                                            showEditForm();
+                                        } catch (error) {
+                                            console.error('Error parsing course data:', error);
+                                        }
+                                    }
+
+                                    async function deleteCourse(courseId) {
+                                        if (confirm('Are you sure you want to delete this course?')) {
+                                            try {
+                                                const response = await fetch(`/admin/courses/${courseId}`, {
+                                                    method: 'DELETE'
+                                                });
+                                                if (response.ok) {
+                                                    window.location.reload();
+                                                }
+                                            } catch (error) {
+                                                console.error('Error deleting course:', error);
+                                            }
+                                        }
+                                    }
+
+                                    async function toggleStatus(courseId) {
+                                        try {
+                                            const response = await fetch(`/admin/courses/${courseId}/toggle-status`, {
+                                                method: 'PATCH'
+                                            });
+                                            if (!response.ok) {
+                                                throw new Error('Failed to toggle status');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error toggling status:', error);
+                                        }
+                                    }
+
+                                    // Form submission handlers
+                                    document.getElementById('addCourseForm').onsubmit = async (e) => {
+                                        e.preventDefault();
+                                        const formData = new FormData();
+
+                                        // Add basic fields
+                                        formData.append('title', e.target.title.value);
+                                        formData.append('description', e.target.description.value);
+                                        formData.append('category', e.target.category.value);
+                                        formData.append('image', e.target.image.files[0]);
+                                        formData.append('price', e.target.price.value);
+                                        if (e.target.offerPrice.value) {
+                                            formData.append('offerPrice', e.target.offerPrice.value);
+                                        }
+
+                                        // Convert comma-separated strings to arrays
+                                        const highlights = e.target.highlights.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const whatYoullLearn = e.target.whatYoullLearn.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const careerOpportunities = e.target.careerOpportunities.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const whyChoose = e.target.whyChooseThisCourse.value.split(',').map(item => item.trim()).filter(Boolean);
+
+                                        // Validate arrays
+                                        if (!highlights.length || !whatYoullLearn.length || !careerOpportunities.length || !whyChoose.length) {
+                                            alert('Please add at least one item for each section');
+                                            return;
+                                        }
+
+                                        // Add array fields as JSON strings
+                                        formData.append('highlights', JSON.stringify(highlights));
+                                        formData.append('whatYoullLearn', JSON.stringify(whatYoullLearn));
+                                        formData.append('careerOpportunities', JSON.stringify(careerOpportunities));
+                                        formData.append('whyChooseThisCourse', JSON.stringify(whyChoose));
+
+                                        try {
+                                            const response = await fetch('/admin/courses/add', {
+                                                method: 'POST',
+                                                body: formData
+                                            });
+
+                                            if (response.ok) {
+                                                window.location.reload();
+                                            } else {
+                                                const errorData = await response.json();
+                                                alert(errorData.details || 'Error adding course');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error adding course:', error);
+                                            alert('Error adding course: ' + error.message);
+                                        }
+                                    };
+
+                                    document.getElementById('editCourseForm').onsubmit = async (e) => {
+                                        e.preventDefault();
+                                        const formData = new FormData();
+                                        const courseId = e.target.courseId.value;
+
+                                        // Add basic fields
+                                        formData.append('title', e.target.title.value);
+                                        formData.append('description', e.target.description.value);
+                                        formData.append('category', e.target.category.value);
+                                        if (e.target.image.files[0]) {
+                                            formData.append('image', e.target.image.files[0]);
+                                        }
+                                        formData.append('price', e.target.price.value);
+                                        if (e.target.offerPrice.value) {
+                                            formData.append('offerPrice', e.target.offerPrice.value);
+                                        }
+
+                                        // Convert comma-separated strings to arrays
+                                        const highlights = e.target.highlights.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const whatYoullLearn = e.target.whatYoullLearn.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const careerOpportunities = e.target.careerOpportunities.value.split(',').map(item => item.trim()).filter(Boolean);
+                                        const whyChoose = e.target.whyChooseThisCourse.value.split(',').map(item => item.trim()).filter(Boolean);
+
+                                        // Validate arrays
+                                        if (!highlights.length || !whatYoullLearn.length || !careerOpportunities.length || !whyChoose.length) {
+                                            alert('Please add at least one item for each section');
+                                            return;
+                                        }
+
+                                        // Add array fields as JSON strings
+                                        formData.append('highlights', JSON.stringify(highlights));
+                                        formData.append('whatYoullLearn', JSON.stringify(whatYoullLearn));
+                                        formData.append('careerOpportunities', JSON.stringify(careerOpportunities));
+                                        formData.append('whyChooseThisCourse', JSON.stringify(whyChoose));
+
+                                        try {
+                                            const response = await fetch(`/admin/courses/${courseId}`, {
+                                                method: 'PUT',
+                                                body: formData
+                                            });
+
+                                            if (response.ok) {
+                                                window.location.reload();
+                                            } else {
+                                                const errorData = await response.json();
+                                                alert(errorData.details || 'Error updating course');
+                                            }
+                                        } catch (error) {
+                                            console.error('Error updating course:', error);
+                                            alert('Error updating course: ' + error.message);
+                                        }
+                                    };
+                                </script>
+                                <!-- /all-user -->
+                            </div>
+                            <!-- /main-content-wrap -->
+                        </div>
+                        <!-- /main-content-wrap -->
+                        <!-- bottom-page -->
+                        <div class="bottom-page">
+                            <div class="body-text">Copyright © 2025 <a href="https://trivlogic.com/">Trivlogic Private
+                                    Limited</a>. All rights reserved</div>
+                        </div>
+                        <!-- /bottom-page -->
+                    </div>
+                    <!-- /main-content -->
+                </div>
+                <!-- /section-content-right -->
+            </div>
+            <!-- /layout-wrap -->
+        </div>
+        <!-- /#page -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Javascript -->
+    <script src="/admin-js/jquery.min.js"></script>
+    <script src="/admin-js/bootstrap.min.js"></script>
+    <script src="/admin-js/bootstrap-select.min.js"></script>
+    <script src="/admin-js/zoom.js"></script>
+    <script src="/admin-js/switcher.js"></script>
+    <script defer src="/admin-js/theme-settings.js"></script>
+    <script defer src="/admin-js/main.js"></script>
+</body>
+
+</html>

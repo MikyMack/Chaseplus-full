@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chaseplus</title>
+  <!-- favicons Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/chaseplus.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/chaseplus.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/chaseplus.png" />
+  <meta name="description" content="" />
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Water+Brush&amp;display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="/vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vendors/bootstrap-select/bootstrap-select.min.css" />
+  <link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.css" />
+  <link rel="stylesheet" href="/vendors/animate/animate.min.css" />
+  <link rel="stylesheet" href="/vendors/fontawesome/css/all.min.css" />
+  <link rel="stylesheet" href="/vendors/eduact-icons/style.css" />
+  <link rel="stylesheet" href="/vendors/jarallax/jarallax.css" />
+  <link rel="stylesheet" href="/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
+  <link rel="stylesheet" href="/vendors/nouislider/nouislider.min.css" />
+  <link rel="stylesheet" href="/vendors/nouislider/nouislider.pips.css" />
+  <link rel="stylesheet" href="/vendors/odometer/odometer.min.css" />
+  <link rel="stylesheet" href="/vendors/tiny-slider/tiny-slider.min.css" />
+  <link rel="stylesheet" href="/vendors/owl-carousel/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" href="/vendors/owl-carousel/assets/owl.theme.default.min.css" />
+
+  <!-- template styles -->
+  <link rel="stylesheet" href="/css/eduact.css" />
+</head>
+
+<body class="custom-cursor">
+  <div class="custom-cursor__cursor"></div>
+  <div class="custom-cursor__cursor-two"></div>
+
+  <div class="preloader">
+    <div class="preloader__image" style="background-image: url(/images/logo/chaseplus.png)"></div>
+  </div>
+  <!-- /.preloader -->
+  <div class="page-wrapper">
+    <header class="main-header-two">
+      <nav class="main-menu">
+        <div class="container">
+          <div class="main-menu__logo">
+            <a href="/">
+              <img src="/images/logo/chaseplus.png" width="183" height="48" alt="Eduact" />
+            </a>
+          </div>
+          <!-- /.main-menu__logo -->
+          <div class="main-menu__nav">
+            <ul class="main-menu__list">
+              <li class="">
+                <a href="/">Home</a>
+              </li>
+
+              <li class="">
+                <a href="/courses">Courses</a>
+              </li>
+
+              <li class="">
+                <a href="about.html">About Us</a>
+              </li>
+              <li class="">
+                <a href="blogs.html">Blog</a>
+              </li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+          <!-- /.main-menu__nav -->
+          <div class="main-menu__right">
+            <a href="#" class="main-menu__toggler mobile-nav__toggler">
+              <i class="fa fa-bars"></i> </a><!-- /.mobile menu btn -->
+
+            <a target="_blank" href="https://wa.me/+919447734486" class="eduact-btn"><span
+                class="eduact-btn__curve"></span>Get In Touch</a><!-- /.contact btn -->
+            <!-- /.info -->
+          </div>
+          <!-- /.main-menu__right -->
+        </div>
+        <!-- /.container -->
+      </nav>
+      <!-- /.main-menu -->
+    </header>
+    <!-- /.main-header-two -->
+
+    <div class="stricky-header stricked-menu main-menu main-header-two">
+      <div class="sticky-header__content"></div>
+      <!-- /.sticky-header__content -->
+    </div>
+    <!-- /.stricky-header -->
+    <section class="page-header page-header--bg-two" data-jarallax data-speed="0.3" data-imgPosition="50% -100%">
+      <div class="page-header__bg jarallax-img"></div>
+      <!-- /.page-header-bg -->
+      <div class="page-header__overlay"></div>
+      <!-- /.page-header-overlay -->
+      <div class="container text-center">
+        <h2 class="page-header__title">Course Details</h2>
+        <!-- /.page-title -->
+        <ul class="page-header__breadcrumb list-unstyled">
+          <li><a href="/">Home</a></li>
+          <li><span>Courses</span></li>
+        </ul>
+        <!-- /.page-breadcrumb list-unstyled -->
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /.page-header -->
+    <!-- Blog Start -->
+    <section class="blog-details">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-12 col-lg-7">
+            <div class="blog-details__content">
+              <div class="blog-details__img">
+                <img src="<%= course.image %>" alt="<%= course.title %>" />
+              </div>
+              <!-- details-image -->
+              <div class="blog-details__meta">
+                <div class="blog-details__meta__date">
+                  <i class="icon-clock"></i>06 Months
+                </div>
+              </div>
+              <!-- /.details-meta -->
+              <h3 class="blog-details__title">
+                <%= course.title %>
+              </h3>
+              <!-- details-title -->
+              <p class="blog-details__text">
+                <%= course.description %>
+              </p>
+
+              <h4 class="blog-details__subtitle">Course Highlights:</h4>
+              <ul class="blog-details__list">
+                <% course.highlights.forEach(function(highlight) { %>
+                  <li><%= highlight %></li>
+                <% }); %>
+              </ul>
+
+              <h4 class="blog-details__subtitle">What You'll Learn:</h4>
+              <p class="blog-details__text">
+                The curriculum covers essential topics including:
+                <% course.whatYoullLearn.forEach(function(point) { %>
+                  <br>- <%= point %>
+                <% }); %>
+              </p>
+
+              <h4 class="blog-details__subtitle">Career Opportunities:</h4>
+              <p class="blog-details__text">
+                Graduates can pursue roles such as:
+                <% course.careerOpportunities.forEach(function(opportunity) { %>
+                  <br>- <%= opportunity %>
+                <% }); %>
+              </p>
+
+              <h4 class="blog-details__subtitle">Why Choose This Course:</h4>
+              <p class="blog-details__text">
+                <% course.whyChooseThisCourse.forEach(function(reason) { %>
+                  <br>- <%= reason %>
+                <% }); %>
+              </p>
+            </div>
+            <!-- details-content -->
+
+            <div class="blog-details__comment-form">
+              <h3 class="blog-details__comment-form__title">
+                Have any Questions? Let's Talk!
+              </h3>
+              <form action="https://bracketweb.com/eduact-html//inc/sendemail.php" class="contact-form-validated"
+                novalidate="novalidate">
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="blog-details__comment-form__input-box">
+                      <input type="text" placeholder="Your name" name="name" />
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="blog-details__comment-form__input-box">
+                      <input type="email" placeholder="Email address" name="email" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12">
+                    <div class="blog-details__comment-form__input-box">
+                      <textarea name="message" placeholder="Write  a comment"></textarea>
+                    </div>
+                    <button type="submit" class="eduact-btn eduact-btn-second">
+                      <span class="eduact-btn__curve"></span>Submit
+                      <i class="icon-arrow"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <div class="result"></div>
+            </div>
+            <!-- details-comment-form -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Blog End -->
+
+    <footer class="main-footer-two">
+      <div class="main-footer-two__bg"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-md-5 wow fadeInUp" data-wow-delay="100ms">
+            <div class="main-footer-two__about">
+              <a href="/" class="main-footer-two__logo">
+                <img src="/images/logo/footer-logo.png" alt="eduact" width="159" style="border-radius: 10px;"
+                  height="60">
+              </a><!-- /.footer-logo -->
+              <p class="text-white">We are ChasePlus – a career-focused institute offering aviation and other
+                skill-based courses to help students succeed.</p>
+              <div class="main-footer-two__social">
+                <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+
+                <a href="https://www.youtube.com/"><i class="fab fa-instagram"></i></a>
+              </div><!-- /.footer-social -->
+            </div><!-- footer-top -->
+          </div>
+          <div class="col-xl-3 col-md-4 wow fadeInUp" data-wow-delay="200ms">
+            <div class="main-footer-two__navmenu main-footer-two__widget01">
+              <h3 class="main-footer-two__title">Quick Links</h3>
+              <ul>
+                <li><a href="/"> Home</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul><!-- /.list-unstyled -->
+            </div><!-- /.footer-menu -->
+          </div>
+          <div class="col-xl-2 col-md-3 wow fadeInUp" data-wow-delay="300ms">
+            <div class="main-footer-two__navmenu main-footer-two__widget02">
+              <h3 class="main-footer-two__title">Explore</h3>
+              <ul>
+                <li><a href="about.html">Mission &Vision</a></li>
+                <li><a href="/courses">Upcoming Courses</a></li>
+                <li><a href="blogs.html">Blog & News</a></li>
+
+                <li><a href="about.html">Testimonial</a></li>
+
+              </ul><!-- /.list-unstyled -->
+            </div><!-- /.footer-menu -->
+          </div>
+          <div class="col-xl-3 col-md-5 wow fadeInUp" data-wow-delay="100ms">
+            <div class="main-footer-two__about">
+              <h3 class="main-footer-two__title">Contact info</h3>
+              <ul class="main-footer-two__info-list">
+                <li><span class="icon-Location text"></span>Knowledge park, Diamond
+                  district, Golden enclave
+                </li>
+                <li><span class="icon-Telephone"></span><a href="tel:+919447734486">+91 94477 34486</a></li>
+                <li><span class="icon-Email"></span><a
+                    href="mailto:chaseplusacademy@gmail.com">chaseplusacademy@gmail.com</a></li>
+              </ul>
+
+            </div><!-- footer-top -->
+          </div>
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    </footer><!-- /.main-footer-two -->
+
+    <section class="copyright text-center">
+      <div class="container wow fadeInUp" data-wow-delay="400ms">
+        <p class="copyright__text">
+          Copyright <span class="dynamic-year"></span><!-- /.dynamic-year -->
+          | <a href="https://trivlogic.com/">Trivlogic Private Limited</a>.
+          All Rights Reserved
+        </p>
+      </div>
+      <!-- /.container -->
+    </section>
+    <!-- /.copyright -->
+  </div>
+  <!-- /.page-wrapper -->
+
+  <div class="mobile-nav__wrapper">
+    <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+    <!-- /.mobile-nav__overlay -->
+    <div class="mobile-nav__content">
+      <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+      <div class="logo-box">
+        <a href="/" aria-label="logo image"><img src="/images/logo/chaseplus.png" width="183" height="48"
+            alt="eduact" /></a>
+      </div>
+      <!-- /.logo-box -->
+      <div class="mobile-nav__container"></div>
+      <!-- /.mobile-nav__container -->
+      <ul class="mobile-nav__contact list-unstyled">
+        <li>
+          <i class="fas fa-envelope"></i>
+          <a target="_blank" href="mailto:chaseplusacademy@gmail.com">chaseplusacademy@gmail.com</a>
+        </li>
+        <li>
+          <i class="fa fa-phone-alt"></i>
+          <a href="tel:+919447734486">+91 94477 34486</a>
+        </li>
+      </ul><!-- /.mobile-nav__contact -->
+      <div class="mobile-nav__social">
+
+        <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/+919447734486"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+      </div><!-- /.mobile-nav__social -->
+    </div>
+    <!-- /.mobile-nav__content -->
+  </div>
+  <!-- /.mobile-nav__wrapper -->
+
+  <!-- Mobile Navigation Bar -->
+  <nav class="mob-nav-wrapper">
+    <div class="mob-nav-container">
+      <a href="/" class="mob-nav-item ">
+        <div class="mob-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <span class="mob-nav-label">Home</span>
+      </a>
+
+      <a href="/courses" class="mob-nav-item active">
+        <div class="mob-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <span class="mob-nav-label">Courses</span>
+      </a>
+
+      <a href="about.html" class="mob-nav-item">
+        <div class="mob-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <span class="mob-nav-label">About Us</span>
+      </a>
+
+      <a href="blogs.html" class="mob-nav-item">
+        <div class="mob-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+        </div>
+        <span class="mob-nav-label">Blogs</span>
+      </a>
+
+      <a href="contact.html" class="mob-nav-item">
+        <div class="mob-nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+            </path>
+          </svg>
+        </div>
+        <span class="mob-nav-label">Contact Us</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- back-to-top-start -->
+  <a href="#" class="scroll-top">
+    <svg class="scroll-top__circle" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+  </a>
+  <!-- back-to-top-end -->
+  <style>
+    .floating-icons {
+        position: fixed;
+        right: 30px;
+        bottom: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 999;
+    }
+
+    .floating-icons a {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .floating-icons a:hover {
+        transform: scale(1.1);
+    }
+
+    .whatsapp-icon {
+        background-color: #25D366;
+    }
+
+    .call-icon {
+        background-color: #007bff;
+    }
+
+    .floating-icons svg {
+        width: 25px;
+        height: 25px;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .floating-icons {
+            right: 10px;
+            bottom: 100px;
+        }
+        .floating-icons a {
+            width: 40px;
+            height: 40px;
+        }
+        .floating-icons svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+
+<div class="floating-icons">
+    <a href="https://wa.me/+919447734486" class="whatsapp-icon" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
+    <a href="tel:+919447734486" class="call-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+        </svg>
+    </a>
+</div>
+  <script src="/vendors/jquery/jquery-3.5.1.min.js"></script>
+  <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+  <script src="/vendors/jquery-ui/jquery-ui.js"></script>
+  <script src="/vendors/jarallax/jarallax.min.js"></script>
+  <script src="/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+  <script src="/vendors/jquery-appear/jquery.appear.min.js"></script>
+  <script src="/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+  <script src="/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+  <script src="/vendors/jquery-validate/jquery.validate.min.js"></script>
+  <script src="/vendors/nouislider/nouislider.min.js"></script>
+  <script src="/vendors/odometer/odometer.min.js"></script>
+  <script src="/vendors/tiny-slider/tiny-slider.min.js"></script>
+  <script src="/vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="/vendors/wnumb/wNumb.min.js"></script>
+  <script src="/vendors/jquery-circleType/jquery.circleType.js"></script>
+  <script src="/vendors/jquery-lettering/jquery.lettering.min.js"></script>
+  <script src="/vendors/tilt/tilt.jquery.js"></script>
+  <script src="/vendors/wow/wow.js"></script>
+  <script src="/vendors/isotope/isotope.js"></script>
+  <script src="/vendors/countdown/countdown.min.js"></script>
+
+  <script src="/js/eduact.js"></script>
+</body>
+
+</html>

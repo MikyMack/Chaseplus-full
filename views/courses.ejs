@@ -61,9 +61,14 @@
                 <a href="/">Home</a>
               </li>
 
-              <li class="">
+              <li class="dropdown">
                 <a style="color: #27981a;" href="/courses">Courses</a>
-              </li>
+                <ul>
+                    <% courses.forEach(function(course) { %>
+                        <li><a href="/course-details/<%= course._id %>"><%= course.title %></a></li>
+                    <% }); %>
+                </ul>
+            </li>
 
               <li class="">
                 <a href="/about">About Us</a>

@@ -154,27 +154,58 @@ app.get('/course-details/:id', async (req, res) => {
     }
 });
 
-app.get('/about', (req, res) => {
+app.get('/about',async (req, res) => {
     try {
-        res.render('about', { title: 'Chaseplus' });
+        const courses = await Course.find({ isActive: true })
+            .populate('category', 'name')
+            .lean()
+            .sort({ createdAt: -1 });
+        res.render('about', { title: 'Chaseplus',courses });
     } catch (err) {
         console.error('Error rendering about page:', err);
         res.status(500).send('Error loading page');
     }
 });
 
-app.get('/contact', (req, res) => {
+app.get('/contact', async (req, res) => {
     try {
-        res.render('contact', { title: 'Chaseplus' });
+        const courses = await Course.find({ isActive: true })
+        .populate('category', 'name')
+        .lean()
+        .sort({ createdAt: -1 });
+        res.render('contact', { title: 'Chaseplus',courses });
     } catch (err) {
         console.error('Error rendering contact page:', err);
         res.status(500).send('Error loading page');
     }
 });
 
-app.get('/blogs', (req, res) => {
+app.get('/blogs', async (req, res) => {
     try {
-        res.render('blogs', { title: 'Chaseplus' });
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 9;
+
+        const totalBlogs = await Blog.countDocuments({ isActive: true });
+        const totalPages = Math.ceil(totalBlogs / limit);
+
+        const blogs = await Blog.find({ isPublished: true })
+            .sort({ createdAt: -1 })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .lean();
+
+        const courses = await Course.find({ isActive: true })
+            .populate('category', 'name')
+            .lean()
+            .sort({ createdAt: -1 });
+
+        res.render('blogs', { 
+            title: 'Chaseplus',
+            courses,
+            blogs,
+            currentPage: page,
+            totalPages
+        });
     } catch (err) {
         console.error('Error rendering blogs page:', err);
         res.status(500).send('Error loading page');

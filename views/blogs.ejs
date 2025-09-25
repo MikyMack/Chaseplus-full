@@ -61,9 +61,14 @@
                 <a href="/">Home</a>
               </li>
 
-              <li class="">
+              <li class="dropdown">
                 <a href="/courses">Courses</a>
-              </li>
+                <ul>
+                    <% courses.forEach(function(course) { %>
+                        <li><a href="/course-details/<%= course._id %>"><%= course.title %></a></li>
+                    <% }); %>
+                </ul>
+            </li>
 
               <li class="">
                 <a href="/about">About Us</a>
@@ -117,33 +122,35 @@
     <section class="blog-page">
       <div class="container">
         <div class="row">
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+          <% blogs.forEach((blog, index) => { %>
+          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="<%= (index + 1) * 100 %>ms">
             <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-3.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
+                <div class="blog-three__image" style="height: 250px; overflow: hidden;">
+                    <img src="<%= blog.imageUrl %>" alt="<%= blog.title %>" style="width: 100%; height: 100%; object-fit: cover;">
+                    <a href="/blog-details/<%= blog._id %>"></a>
+                </div><!-- /.blog-image -->
               <!-- /.blog-image -->
               <div class="blog-three__content">
                 <div class="blog-three__top-meta">
                   <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
+                    <a href="/blog-details/<%= blog._id %>"><%= blog.category || 'General' %></a>
                   </div>
                   <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
+                  <div class="blog-three__date">
+                    <%= new Date(blog.date).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) %>
+                  </div>
                   <!-- /.blog-date -->
                 </div>
                 <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
+                  <a href="/blog-details/<%= blog._id %>"><%= blog.title %></a>
                 </h3>
                 <!-- /.blog-title -->
                 <div class="blog-three__meta">
                   <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
+                    <img src="/images/logo/dummy.jpg" alt="author" />
+                    <a href="/blog-details/<%= blog._id %>"><%= blog.author %></a>
                   </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
+                  <a class="blog-three__rm" href="/blog-details/<%= blog._id %>"><span
                       class="icon-arrow"></span></a><!-- /.read-more-btn -->
                 </div>
                 <!-- /.blog-meta -->
@@ -152,186 +159,28 @@
             </div>
             <!-- /.blog-card-one -->
           </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
-            <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-5.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
-              <!-- /.blog-image -->
-              <div class="blog-three__content">
-                <div class="blog-three__top-meta">
-                  <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
-                  </div>
-                  <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
-                  <!-- /.blog-date -->
-                </div>
-                <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
-                </h3>
-                <!-- /.blog-title -->
-                <div class="blog-three__meta">
-                  <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
-                  </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
-                      class="icon-arrow"></span></a><!-- /.read-more-btn -->
-                </div>
-                <!-- /.blog-meta -->
-              </div>
-              <!-- /.blog-content -->
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="300ms">
-            <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-4.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
-              <!-- /.blog-image -->
-              <div class="blog-three__content">
-                <div class="blog-three__top-meta">
-                  <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
-                  </div>
-                  <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
-                  <!-- /.blog-date -->
-                </div>
-                <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
-                </h3>
-                <!-- /.blog-title -->
-                <div class="blog-three__meta">
-                  <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
-                  </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
-                      class="icon-arrow"></span></a><!-- /.read-more-btn -->
-                </div>
-                <!-- /.blog-meta -->
-              </div>
-              <!-- /.blog-content -->
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="400ms">
-            <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-3.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
-              <!-- /.blog-image -->
-              <div class="blog-three__content">
-                <div class="blog-three__top-meta">
-                  <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
-                  </div>
-                  <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
-                  <!-- /.blog-date -->
-                </div>
-                <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
-                </h3>
-                <!-- /.blog-title -->
-                <div class="blog-three__meta">
-                  <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
-                  </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
-                      class="icon-arrow"></span></a><!-- /.read-more-btn -->
-                </div>
-                <!-- /.blog-meta -->
-              </div>
-              <!-- /.blog-content -->
-            </div>
-            <!-- /.blog-card-one -->
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="500ms">
-            <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-5.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
-              <!-- /.blog-image -->
-              <div class="blog-three__content">
-                <div class="blog-three__top-meta">
-                  <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
-                  </div>
-                  <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
-                  <!-- /.blog-date -->
-                </div>
-                <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
-                </h3>
-                <!-- /.blog-title -->
-                <div class="blog-three__meta">
-                  <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
-                  </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
-                      class="icon-arrow"></span></a><!-- /.read-more-btn -->
-                </div>
-                <!-- /.blog-meta -->
-              </div>
-              <!-- /.blog-content -->
-            </div>
-          </div>
-          <div class="col-xl-4 col-md-6 wow fadeInUp" data-wow-delay="600ms">
-            <div class="blog-three__item">
-              <div class="blog-three__image">
-                <img src="/images/course/crs-4.jpg" alt="eduact" />
-                <a href="/blog-details"></a>
-              </div>
-              <!-- /.blog-image -->
-              <div class="blog-three__content">
-                <div class="blog-three__top-meta">
-                  <div class="blog-three__cats">
-                    <a href="/blog-details">Aviation</a>
-                  </div>
-                  <!-- /.blog-cats -->
-                  <div class="blog-three__date">26 Mar, 2025</div>
-                  <!-- /.blog-date -->
-                </div>
-                <h3 class="blog-three__title">
-                  <a href="/blog-details">Frankfinn's Advanced Aviation Training: What Sets it
-                    Apart?</a>
-                </h3>
-                <!-- /.blog-title -->
-                <div class="blog-three__meta">
-                  <div class="blog-three__meta__author">
-                    <img src="/images/logo/dummy.jpg" alt="eduact" />
-                    <a href="/blog-details">prasad</a>
-                  </div>
-                  <a class="blog-three__rm" href="/blog-details"><span
-                      class="icon-arrow"></span></a><!-- /.read-more-btn -->
-                </div>
-                <!-- /.blog-meta -->
-              </div>
-              <!-- /.blog-content -->
-            </div>
-          </div>
+          <% }); %>
         </div>
         <div class="row">
           <div class="col-md-12">
             <ul class="blog-page__pagination clearfix">
-              <li><a href="#" class="active">1</a></li>
-              <li><a href="#">2</a></li>
-              <li class="next">
-                <a href=""><span class="icon-caret-right"></span></a>
-              </li>
+              <% if (currentPage > 1) { %>
+                <li class="prev">
+                  <a href="/blogs?page=<%= currentPage - 1 %>"><span class="icon-caret-left"></span></a>
+                </li>
+              <% } %>
+              
+              <% for(let i = 1; i <= totalPages; i++) { %>
+                <li>
+                  <a href="/blogs?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                </li>
+              <% } %>
+
+              <% if (currentPage < totalPages) { %>
+                <li class="next">
+                  <a href="/blogs?page=<%= currentPage + 1 %>"><span class="icon-caret-right"></span></a>
+                </li>
+              <% } %>
             </ul>
           </div>
         </div>

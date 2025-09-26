@@ -8,7 +8,7 @@ const cloudinary = require('./config/cloudinary');
 const upload = require('./config/multer-config');
 const authRoutes = require('./routes/authRoutes');
 const Course = require('./models/Course')
-const Blog = require('./models/blogs')
+const Blog = require('./models/Blogs')
 const Category = require('./models/Category');
 
 const authMiddleware = require('./middleware/auth');
